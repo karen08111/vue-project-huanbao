@@ -10,6 +10,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
+var express = require('express')
+var app = express()
+var appData = require('../static/data.json')
+
+var headerData = appData.header
+var appRouter = express.Router()
+appRouter.get('/header',function (req,res) {
+	res.json({
+		data: headerData
+	})
+})
+
+app.use('/api', appRouter)
+
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
